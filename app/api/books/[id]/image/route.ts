@@ -22,55 +22,6 @@ type RouteContext = {
     params: Promise<{ id: string }>;
 };
 
-/**
- * @swagger
- * /api/books/{id}/image:
- *   patch:
- *     tags:
- *       - Books
- *     summary: Replace book image
- *     description: Admin only. Uploads a new image and replaces the previous one.
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     requestBody:
- *       required: true
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             required:
- *               - image
- *             properties:
- *               image:
- *                 type: string
- *                 format: binary
- *     responses:
- *       200:
- *         description: Book image replaced successfully
- *       400:
- *         description: Invalid image or ID
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Book not found
- *       409:
- *         description: Book was modified or deleted
- *       413:
- *         description: Image too large
- *       415:
- *         description: Unsupported content type
- *       500:
- *         description: Internal server error
- */
 export async function PATCH(
     request: Request,
     context: RouteContext

@@ -28,7 +28,6 @@ async function seedAdmin() {
         );
     }
 
-    // Check whether an admin already exists
     const [existingAdmin] = await db
         .select({ id: users.id })
         .from(users)
@@ -42,7 +41,6 @@ async function seedAdmin() {
         return;
     }
 
-    // Check whether the email is already registered
     const [existingEmail] = await db
         .select({ id: users.id })
         .from(users)

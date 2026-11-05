@@ -36,7 +36,7 @@ export function isUniqueViolation(error: unknown): boolean {
 }
 
 export function handleApiError(error: unknown): Response {
-    // Handle known business errors
+
     if (error instanceof AppError) {
         return Response.json(
             {
@@ -48,7 +48,6 @@ export function handleApiError(error: unknown): Response {
         );
     }
 
-    // Driver errors can contain SQL parameters and connection credentials.
     console.error("Unexpected API error");
 
     return Response.json(

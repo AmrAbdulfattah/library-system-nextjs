@@ -22,30 +22,6 @@ async function parseAuthorId(context: RouteContext) {
     return authorIdSchema.safeParse(id);
 }
 
-/**
- * @swagger
- * /api/authors/{id}:
- *   get:
- *     tags:
- *       - Authors
- *     summary: Get author by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       200:
- *         description: Author retrieved
- *       400:
- *         description: Invalid ID
- *       404:
- *         description: Author not found
- *       500:
- *         description: Internal server error
- */
 export async function GET(
     request: Request,
     context: RouteContext
@@ -70,44 +46,6 @@ export async function GET(
     }
 }
 
-/**
- * @swagger
- * /api/authors/{id}:
- *   put:
- *     tags:
- *       - Authors
- *     summary: Update author
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CreateAuthor'
- *     responses:
- *       200:
- *         description: Author updated
- *       400:
- *         description: Invalid input
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Author not found
- *       409:
- *         description: Author already exists
- *       500:
- *         description: Internal server error
- */
 export async function PUT(
     request: Request,
     context: RouteContext
@@ -161,38 +99,6 @@ export async function PUT(
     }
 }
 
-/**
- * @swagger
- * /api/authors/{id}:
- *   delete:
- *     tags:
- *       - Authors
- *     summary: Soft delete author
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       204:
- *         description: Author deleted
- *       400:
- *         description: Invalid ID
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Author not found
- *       409:
- *         description: Author has active books
- *       500:
- *         description: Internal server error
- */
 export async function DELETE(
     request: Request,
     context: RouteContext

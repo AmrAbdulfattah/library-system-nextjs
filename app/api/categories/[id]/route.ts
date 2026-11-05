@@ -22,30 +22,6 @@ async function parseCategoryId(context: RouteContext) {
     return categoryIdSchema.safeParse(id);
 }
 
-/**
- * @swagger
- * /api/categories/{id}:
- *   get:
- *     tags:
- *       - Categories
- *     summary: Get category by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       200:
- *         description: Category retrieved
- *       400:
- *         description: Invalid ID
- *       404:
- *         description: Category not found
- *       500:
- *         description: Internal server error
- */
 export async function GET(
     request: Request,
     context: RouteContext
@@ -70,44 +46,6 @@ export async function GET(
     }
 }
 
-/**
- * @swagger
- * /api/categories/{id}:
- *   put:
- *     tags:
- *       - Categories
- *     summary: Update category
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CreateCategory'
- *     responses:
- *       200:
- *         description: Category updated
- *       400:
- *         description: Invalid input
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Category not found
- *       409:
- *         description: Category already exists
- *       500:
- *         description: Internal server error
- */
 export async function PUT(
     request: Request,
     context: RouteContext
@@ -161,38 +99,6 @@ export async function PUT(
     }
 }
 
-/**
- * @swagger
- * /api/categories/{id}:
- *   delete:
- *     tags:
- *       - Categories
- *     summary: Soft delete category
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       204:
- *         description: Category deleted
- *       400:
- *         description: Invalid ID
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Category not found
- *       409:
- *         description: Category has active books
- *       500:
- *         description: Internal server error
- */
 export async function DELETE(
     request: Request,
     context: RouteContext

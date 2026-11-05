@@ -3,7 +3,7 @@ import { del, put } from "@vercel/blob";
 import { randomUUID } from "node:crypto";
 import { AppError } from "../lib/api-error";
 
-const MAX_IMAGE_SIZE = 3 * 1024 * 1024; // 3 MB
+const MAX_IMAGE_SIZE = 3 * 1024 * 1024;
 
 const ALLOWED_TYPES = [
     "image/jpeg",
@@ -21,7 +21,6 @@ const EXTENSIONS: Record<ImageType, string> = {
 
 export class ImageService {
 
-    // 1. Validate image before uploading
     async validateImage(file: unknown): Promise<File> {
         if (!(file instanceof File)) {
             throw new AppError(
@@ -55,7 +54,6 @@ export class ImageService {
             );
         }
 
-        // Verify actual file signature, not just MIME type
         const bytes = new Uint8Array(
             await file.slice(0, 12).arrayBuffer()
         );
@@ -98,7 +96,6 @@ export class ImageService {
         return file;
     }
 
-    // 2. Upload image to cloud storage
     async uploadImage(file: unknown): Promise<string> {
         const image = await this.validateImage(file);
 
@@ -117,7 +114,6 @@ export class ImageService {
         return blob.url;
     }
 
-    // 3. Delete an image stored by our application
     async deleteImage(imageUrl: string): Promise<void> {
         if (!imageUrl) {
             return;

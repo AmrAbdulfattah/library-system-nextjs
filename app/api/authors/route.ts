@@ -12,35 +12,6 @@ const authorService = new AuthorService(
     new AuthorRepository()
 );
 
-/**
- * @swagger
- * /api/authors:
- *   get:
- *     tags:
- *       - Authors
- *     summary: Get all authors with pagination
- *     parameters:
- *       - in: query
- *         name: pageNumber
- *         schema:
- *           type: integer
- *           minimum: 1
- *           default: 1
- *       - in: query
- *         name: pageSize
- *         schema:
- *           type: integer
- *           minimum: 1
- *           maximum: 100
- *           default: 10
- *     responses:
- *       200:
- *         description: Authors retrieved successfully
- *       400:
- *         description: Invalid pagination parameters
- *       500:
- *         description: Internal server error
- */
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
@@ -71,35 +42,6 @@ export async function GET(request: Request) {
     }
 }
 
-/**
- * @swagger
- * /api/authors:
- *   post:
- *     tags:
- *       - Authors
- *     summary: Create author
- *     security:
- *       - BearerAuth: []
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/CreateAuthor'
- *     responses:
- *       201:
- *         description: Author created successfully
- *       400:
- *         description: Validation failed
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       409:
- *         description: Author already exists
- *       500:
- *         description: Internal server error
- */
 export async function POST(request: Request) {
     try {
         const adminId = await requireAdmin(request);

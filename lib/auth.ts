@@ -9,7 +9,6 @@ export async function requireAdmin(
     request: Request
 ): Promise<number> {
 
-    // 1. Read Authorization header
     const authorization = request.headers.get("authorization");
 
     if (!authorization) {

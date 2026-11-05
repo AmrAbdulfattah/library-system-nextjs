@@ -27,12 +27,10 @@ export class BookService {
         private readonly imageService: ImageService
     ) {}
 
-    // Get All with Pagination and Filtering
     async getAll(filters: BookFilters) {
         return await this.bookRepository.getAll(filters);
     }
 
-    // Get Book By ID
     async getById(id: number) {
         const book = await this.bookRepository.getById(id);
 
@@ -43,7 +41,6 @@ export class BookService {
         return book;
     }
 
-    // Validate Author and Category
     private async validateRelations(
         authorId: number,
         categoryId: number
@@ -62,7 +59,6 @@ export class BookService {
         }
     }
 
-    // Validate Book Data
     private validateBookData(data: {
         title: string;
         publicationYear: number;
@@ -106,7 +102,6 @@ export class BookService {
         return title;
     }
 
-    // Check PostgreSQL Foreign Key Violation
     private isForeignKeyViolation(error: unknown): boolean {
         let current: unknown = error;
 
@@ -136,7 +131,6 @@ export class BookService {
    async add(data: CreateBookData, image: File) {
     const title = this.validateBookData(data);
 
-    // Check duplicate title before uploading the image
     const titleExists =
         await this.bookRepository.existsByTitle(title);
 
@@ -147,13 +141,11 @@ export class BookService {
         );
     }
 
-    // Validate author and category
     await this.validateRelations(
         data.authorId,
         data.categoryId
     );
 
-    // Validate and upload image
     await this.imageService.validateImage(image);
 
     const imageUrl =
@@ -173,7 +165,6 @@ export class BookService {
 
     } catch (error) {
 
-        // Clean up uploaded image if database insert fails
         try {
             await this.imageService.deleteImage(imageUrl);
         } catch {
@@ -205,7 +196,6 @@ export class BookService {
 
     await this.getById(id);
 
-    // Check duplicate title, excluding current book
     const titleExists =
         await this.bookRepository.existsByTitle(
             title,
@@ -265,7 +255,6 @@ export class BookService {
     }
 }
 
-    // Replace Existing Book Image
     async replaceImage(
         id: number,
         image: File,
@@ -306,7 +295,6 @@ export class BookService {
             throw error;
         }
 
-        // Delete old image only AFTER database update succeeds
         try {
             await this.imageService.deleteImage(
                 existingBook.imageUrl
@@ -320,7 +308,6 @@ export class BookService {
         return updatedBook;
     }
 
-    // Soft Delete Book
     async softDelete(
         id: number,
         updatedBy: string | null = null

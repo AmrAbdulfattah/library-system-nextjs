@@ -30,34 +30,6 @@ async function parseBookId(context: RouteContext) {
     return bookIdSchema.safeParse(id);
 }
 
-/**
- * @swagger
- * /api/books/{id}:
- *   get:
- *     tags:
- *       - Books
- *     summary: Get book by ID
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       200:
- *         description: Book retrieved successfully
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Book'
- *       400:
- *         description: Invalid book ID
- *       404:
- *         description: Book not found
- *       500:
- *         description: Internal server error
- */
 export async function GET(
     request: Request,
     context: RouteContext
@@ -82,45 +54,6 @@ export async function GET(
     }
 }
 
-/**
- * @swagger
- * /api/books/{id}:
- *   put:
- *     tags:
- *       - Books
- *     summary: Update book details
- *     description: Admin only. Updates book details without changing its image.
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/UpdateBook'
- *     responses:
- *       200:
- *         description: Book updated successfully
- *       400:
- *         description: Invalid ID or request body
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Book, author or category not found
- *       409:
- *         description: Duplicate title or invalid relation
- *       500:
- *         description: Internal server error
- */
 export async function PUT(
     request: Request,
     context: RouteContext
@@ -174,37 +107,6 @@ export async function PUT(
     }
 }
 
-/**
- * @swagger
- * /api/books/{id}:
- *   delete:
- *     tags:
- *       - Books
- *     summary: Soft delete book
- *     description: Admin only. Marks a book as deleted.
- *     security:
- *       - BearerAuth: []
- *     parameters:
- *       - in: path
- *         name: id
- *         required: true
- *         schema:
- *           type: integer
- *           minimum: 1
- *     responses:
- *       204:
- *         description: Book soft deleted successfully
- *       400:
- *         description: Invalid book ID
- *       401:
- *         description: Unauthorized
- *       403:
- *         description: Admin access required
- *       404:
- *         description: Book not found
- *       500:
- *         description: Internal server error
- */
 export async function DELETE(
     request: Request,
     context: RouteContext
