@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "books_active_title_unique" ON "books" USING btree (lower(btrim("title"))) WHERE not "books"."is_deleted";

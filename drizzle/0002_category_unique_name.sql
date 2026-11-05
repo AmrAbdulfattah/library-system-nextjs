@@ -1,0 +1,2 @@
+ALTER TABLE "categories" DROP CONSTRAINT "categories_name_unique";--> statement-breakpoint
+CREATE UNIQUE INDEX "categories_active_name_unique" ON "categories" USING btree (lower(btrim("name"))) WHERE not "categories"."is_deleted";

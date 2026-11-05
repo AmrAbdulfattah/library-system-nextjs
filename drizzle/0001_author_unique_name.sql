@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "authors_active_name_unique" ON "authors" USING btree (lower(btrim("name"))) WHERE not "authors"."is_deleted";
